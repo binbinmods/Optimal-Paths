@@ -1,0 +1,9 @@
+{
+    "name": "Optimal_Paths",
+    "version_number": "0.1.0",
+    "website_url": "https://github.com/thunderstore-io",
+    "description": "Mod that forces all paths to be optimal. Also highlights the optimal path.",
+    "dependencies": [
+        "meds-Obeliskial_Content-1.2.2"
+    ]
+}

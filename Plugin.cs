@@ -18,7 +18,7 @@ namespace OptimalPaths{
 
     // If you have other dependencies, such as obeliskial content, make sure to include them here.
     [BepInPlugin(PluginInfo.PLUGIN_GUID, PluginInfo.PLUGIN_NAME, PluginInfo.PLUGIN_VERSION)]
-    [BepInDependency("com.stiffmeds.obeliskialessentials")] // this is the name of the .dll in the !libs folder.
+    // [BepInDependency("com.stiffmeds.obeliskialessentials")] // this is the name of the .dll in the !libs folder.
     [BepInProcess("AcrossTheObelisk.exe")] //Don't change this
 
     // If PluginInfo isn't working, you are either:
@@ -34,8 +34,8 @@ namespace OptimalPaths{
         // and then use config = Config.Bind() to set the title, default value, and description of the config.
         // It automatically creates the appropriate configs.
         
-        public static ConfigEntry<bool> SampleBooleanConfig { get; set; }
-        public static ConfigEntry<int> SampleIntegerConfig { get; set; }
+        public static ConfigEntry<bool> EnableOptimalPaths { get; set; }
+        public static ConfigEntry<bool> HighlightPath { get; set; }
 
         internal int ModDate = int.Parse(DateTime.Today.ToString("yyyyMMdd"));
         private readonly Harmony harmony = new(PluginInfo.PLUGIN_GUID);
@@ -51,19 +51,19 @@ namespace OptimalPaths{
             Log.LogInfo($"{PluginInfo.PLUGIN_GUID} {PluginInfo.PLUGIN_VERSION} has loaded!");
             
             // Sets the title, default values, and descriptions
-            SampleBooleanConfig = Config.Bind(new ConfigDefinition("Debug", "Name of Config"), true, new ConfigDescription("Description of Config"));
-            SampleIntegerConfig = Config.Bind(new ConfigDefinition("Debug", "Name of Config"), 3, new ConfigDescription("Description of Config)"));
+            EnableOptimalPaths = Config.Bind(new ConfigDefinition("OptimalPaths", "EnableOptimalPaths"), true, new ConfigDescription("If false, disables the mod. Restart the game upon changing this setting."));
+            HighlightPath = Config.Bind(new ConfigDefinition("OptimalPaths", "HighlightPath"), false, new ConfigDescription("If true, highlights the optimal path in adventure mode with a red flare for each node.)"));
             
 
             // Register with Obeliskial Essentials, delete this if you don't need it.
-            RegisterMod(
-                _name: PluginInfo.PLUGIN_NAME,
-                _author: "binbin",
-                _description: "Sample Plugin",
-                _version: PluginInfo.PLUGIN_VERSION,
-                _date: ModDate,
-                _link: @"https://github.com/binbinmods/SampleCSharpWorkspace"
-            );
+            // RegisterMod(
+            //     _name: PluginInfo.PLUGIN_NAME,
+            //     _author: "binbin",
+            //     _description: "Sample Plugin",
+            //     _version: PluginInfo.PLUGIN_VERSION,
+            //     _date: ModDate,
+            //     _link: @"https://github.com/binbinmods/SampleCSharpWorkspace"
+            // );
 
             // apply patches
             harmony.PatchAll();

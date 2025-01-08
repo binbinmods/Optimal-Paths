@@ -42,5 +42,9 @@
     </Reference>
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="../../../plugins" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="Optimal Paths/BepInEx/plugins" />
+  </Target>
 
 </Project>

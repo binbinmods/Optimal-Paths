@@ -5,9 +5,11 @@ using HarmonyLib;
 using static Obeliskial_Essentials.Essentials;
 using System;
 using static OptimalPaths.CustomFunctions;
+using static OptimalPaths.Plugin;
 
 // Make sure your namespace is the same everywhere
-namespace OptimalPaths{
+namespace OptimalPaths
+{
 
     [HarmonyPatch] //DO NOT REMOVE/CHANGE
 
@@ -18,39 +20,48 @@ namespace OptimalPaths{
         // Then you need to tell Harmony which method to patch.
 
         [HarmonyPrefix]
-        [HarmonyPatch(typeof(AtOManager),nameof(AtOManager.AssignSingleGameNode))]
-        public static void AssignSingleGameNodePrefix(ref AtOManager __instance, ref Node _node){
-            Plugin.Log.LogInfo("AssignSingleGameNode Prefix");
-            if(!Plugin.EnableOptimalPaths.Value||_node==null || _node.nodeData==null)
+        [HarmonyPatch(typeof(AtOManager), nameof(AtOManager.AssignSingleGameNode))]
+        public static void AssignSingleGameNodePrefix(ref AtOManager __instance, ref Node _node)
+        {
+            LogInfo("AssignSingleGameNode Prefix");
+            if (!Plugin.EnableOptimalPaths.Value || _node == null || _node.nodeData == null)
             {
                 return;
             }
             // forces all nodes to exist
-            _node.nodeData.ExistsPercent=100;
+            _node.nodeData.ExistsPercent = 100;
 
             // forces all combats to exist since they give more score than any event node
-            if(_node.nodeData.CombatPercent!=0)
+            if (_node.nodeData.CombatPercent != 0)
             {
-                _node.nodeData.CombatPercent=100;
-                _node.nodeData.EventPercent=0;
+                _node.nodeData.CombatPercent = 100;
+                _node.nodeData.EventPercent = 0;
+                return;
             }
 
-            if (_node.nodeData.NodeEventPercent.Length>1)
+            // forces all events with multiple nodes to choose the last event in the list. 
+            // This happens to always be the highest scoring event
+            int len = _node.nodeData.NodeEventPercent.Length;
+            if (len > 1)
             {
-                int[] outputPercents = [_node.nodeData.NodeEventPercent.Length];
-                for (int i = 0; i < _node.nodeData.NodeEventPercent.Length; i++)
-                {
-                    outputPercents[i] = i>=_node.nodeData.NodeEventPercent.Length-1 ? 100 : 0;
-                }
+                LogDebug(_node.nodeData.NodeId);
+                int[] outputPercents = new int[len];
+                LogDebug("after creation");
+                LogDebug($"len = {len}");
+                outputPercents[len-1] = 100;
+                LogDebug("afterset");
+                LogDebug("NodeEvent Percents:" + string.Join(",", _node.nodeData.NodeEventPercent));
+                LogDebug("Output Percents:" + string.Join(",", outputPercents));
+
                 _node.nodeData.NodeEventPercent = outputPercents;
             }
 
 
-            return;       
-            
+            return;
+
         }
-        
-        
+
+
 
     }
 }

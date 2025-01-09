@@ -41,7 +41,7 @@ namespace OptimalPaths{
         private readonly Harmony harmony = new(PluginInfo.PLUGIN_GUID);
         internal static ManualLogSource Log;
 
-        public static string debugBase = PluginInfo.PLUGIN_GUID;
+        public static string debugBase = $"{PluginInfo.PLUGIN_GUID} ";
 
         private void Awake()
         {

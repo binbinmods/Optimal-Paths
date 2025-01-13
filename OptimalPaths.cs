@@ -23,7 +23,7 @@ namespace OptimalPaths
         // Prefixes are executed before the original code, postfixes are executed after
         // Then you need to tell Harmony which method to patch.
 
-        static string[] optimalPath = ["sen_0","sen_1"];
+        static string[] optimalPath = ["sen_0", "sen_1"];
         [HarmonyPrefix]
         [HarmonyPatch(typeof(AtOManager), nameof(AtOManager.AssignSingleGameNode))]
         public static void AssignSingleGameNodePrefix(ref AtOManager __instance, ref Node _node)
@@ -53,7 +53,7 @@ namespace OptimalPaths
                 int[] outputPercents = new int[len];
                 // LogDebug("after creation");
                 // LogDebug($"len = {len}");
-                outputPercents[len-1] = 100;
+                outputPercents[len - 1] = 100;
                 // LogDebug("afterset");
                 // LogDebug("NodeEvent Percents:" + string.Join(",", _node.nodeData.NodeEventPercent));
                 // LogDebug("Output Percents:" + string.Join(",", outputPercents));
@@ -81,7 +81,7 @@ namespace OptimalPaths
             if (optimalPath.Contains(__instance.nodeData.NodeId))
             {
                 ParticleSystem nodeImageParticlesSystem = Traverse.Create(__instance).Field("nodeImageParticlesSystem").GetValue<ParticleSystem>();
-                if (nodeImageParticlesSystem==null)
+                if (nodeImageParticlesSystem == null)
                 {
                     Transform nodeImageParticlesT = Traverse.Create(__instance).Field("nodeImageParticlesT").GetValue<Transform>();
                     if (nodeImageParticlesT == null)
@@ -92,14 +92,11 @@ namespace OptimalPaths
                     }
                     nodeImageParticlesSystem = nodeImageParticlesT.GetComponent<ParticleSystem>();
                 }
-                
+
                 ParticleSystem.MainModule main = nodeImageParticlesSystem.main;
-                main.startColor = (ParticleSystem.MinMaxGradient) Color.red;
+                main.startColor = (ParticleSystem.MinMaxGradient)Color.red;
                 Traverse.Create(__instance).Field("nodeImageParticlesSystem").SetValue(nodeImageParticlesSystem);
-
             }
-
         }
-
     }
 }

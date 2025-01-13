@@ -4,6 +4,6 @@
     "website_url": "https://github.com/binbinmods/Optimal-Paths",
     "description": "Mod that forces all paths to be optimal. Also highlights the optimal path.",
     "dependencies": [
-        "meds-Obeliskial_Content-1.2.2"
+        "BepInEx-BepInExPack_AcrossTheObelisk-5.4.23"
     ]
 }

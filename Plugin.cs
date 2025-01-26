@@ -66,7 +66,9 @@ namespace OptimalPaths{
             // );
 
             // apply patches
+            // NodePathCode.PathScoreCalc();
             harmony.PatchAll();
+            
         }
 
         internal static void LogDebug(string msg)

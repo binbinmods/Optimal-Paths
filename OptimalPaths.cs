@@ -63,14 +63,15 @@ namespace OptimalPaths
             return;
         }
 
-        // [HarmonyPostfix]
-        // [HarmonyPatch(typeof(MapManager), nameof(MapManager.BeginMap))]
-        // public static void BeginMapPostfix()
-        // {
-        //     LogInfo("BeginMap Postfix");
-        //     Dictionary<string, Node> mapNodeDict = MapManager.Instance.GetMapNodeDict();
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(Globals), nameof(Globals.CreateGameContent))]
+        public static void CreateGameContentPostfix()
+        {
+            LogInfo("Calculating optimal path");
+            // Dictionary<string, Node> mapNodeDict = MapManager.Instance.GetMapNodeDict();
+            NodePathCode.PathScoreCalc();
 
-        // }
+        }
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(Node), nameof(Node.AssignNode))]

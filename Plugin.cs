@@ -4,7 +4,7 @@ using BepInEx;
 using BepInEx.Logging;
 using BepInEx.Configuration;
 using HarmonyLib;
-using static Obeliskial_Essentials.Essentials;
+// using static Obeliskial_Essentials.Essentials;
 using System;
 
 
@@ -36,6 +36,11 @@ namespace OptimalPaths{
         
         public static ConfigEntry<bool> EnableOptimalPaths { get; set; }
         public static ConfigEntry<bool> HighlightPath { get; set; }
+        public static ConfigEntry<bool> ForceAllNodes { get; set; }
+        public static ConfigEntry<bool> ForceHighScoring { get; set; }
+        public static ConfigEntry<bool> ForceRareEvents { get; set; }
+        public static ConfigEntry<bool> EnableHighScoreLog { get; set; }
+        
 
         internal int ModDate = int.Parse(DateTime.Today.ToString("yyyyMMdd"));
         private readonly Harmony harmony = new(PluginInfo.PLUGIN_GUID);
@@ -51,8 +56,12 @@ namespace OptimalPaths{
             Log.LogInfo($"{PluginInfo.PLUGIN_GUID} {PluginInfo.PLUGIN_VERSION} has loaded!");
             
             // Sets the title, default values, and descriptions
-            EnableOptimalPaths = Config.Bind(new ConfigDefinition("OptimalPaths", "EnableOptimalPaths"), true, new ConfigDescription("If false, disables the mod. Restart the game upon changing this setting."));
-            HighlightPath = Config.Bind(new ConfigDefinition("OptimalPaths", "HighlightPath"), false, new ConfigDescription("If true, highlights the optimal path in adventure mode with a red flare for each node.)"));
+            EnableOptimalPaths = Config.Bind(new ConfigDefinition("Optimal Paths", "Enable Optimal Paths"), true, new ConfigDescription("If false, disables the mod. Restart the game upon changing this or any setting."));
+            ForceHighScoring = Config.Bind(new ConfigDefinition("Optimal Paths", "Force Highscoring"), false, new ConfigDescription("If true, forces nodes to be in their highscoring variant. This overrides other settings."));
+            HighlightPath = Config.Bind(new ConfigDefinition("Optimal Paths", "Highlight Path (WIP)"), false, new ConfigDescription("If true, highlights the optimal path in adventure mode with a red flare for each node. (Not implemented yet)"));
+            ForceAllNodes = Config.Bind(new ConfigDefinition("Optimal Paths", "Force All Nodes"), true, new ConfigDescription("If true, forces all nodes to spawn"));            
+            ForceRareEvents = Config.Bind(new ConfigDefinition("Optimal Paths", "Force Rare Events"), true, new ConfigDescription("If true, forces all nodes to have their rarer form."));
+            EnableHighScoreLog = Config.Bind(new ConfigDefinition("Optimal Paths", "Enable High Score Log"), false, new ConfigDescription("If true, logs some additional high scoring info."));
             
 
             // Register with Obeliskial Essentials, delete this if you don't need it.

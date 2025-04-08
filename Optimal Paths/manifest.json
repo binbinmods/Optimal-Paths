@@ -1,8 +1,8 @@
 {
     "name": "Optimal_Paths",
-    "version_number": "1.1.1",
+    "version_number": "1.1.2",
     "website_url": "https://github.com/binbinmods/Optimal-Paths",
-    "description": "Mod that forces all paths to be optimal. Also highlights the optimal path.",
+    "description": "A mod that forces all paths nodes to spawn. Can choose to make all nodes optimal for highscoring or as rare as possible. Also highlights the optimal path (WIP).",
     "dependencies": [
         "BepInEx-BepInExPack_AcrossTheObelisk-5.4.23"
     ]

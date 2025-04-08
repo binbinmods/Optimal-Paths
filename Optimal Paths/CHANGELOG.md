@@ -1,3 +1,7 @@
+# 1.1.2
+
+Changed "Force Rare Events" to make all potentially combat nodes into event nodes.
+
 # 1.1.1
 
 Updated to allow for the Failed Expedition (Blood Blob) node to always spawn in non-highscore mode.

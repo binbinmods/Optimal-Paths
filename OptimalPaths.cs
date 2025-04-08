@@ -47,12 +47,11 @@ namespace OptimalPaths
                 _node.nodeData.EventPercent = 0;
                 return;
             }
-            else if((_node.nodeData.CombatPercent != 0 || _node.nodeData.CombatPercent != 100) && !ForceHighScoring.Value)
+            else if(!(_node.nodeData.CombatPercent == 0 || _node.nodeData.CombatPercent == 100) && ForceRareEvents.Value)
             {
                 _node.nodeData.CombatPercent = 0;
                 _node.nodeData.EventPercent = 100;
                 return;
-
             }
 
             // forces all events with multiple nodes to choose the last event in the list. 
